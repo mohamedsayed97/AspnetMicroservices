@@ -1,0 +1,2 @@
+-is a container management tool 
+-used to setup and manage environment, deploy applications, monitor applications performance 
