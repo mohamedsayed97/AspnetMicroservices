@@ -4,8 +4,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Ordering.API.Extensions;
 using Ordering.Infrastructure.Persistence;
-//using Serilog;
-//using Common.Logging;
 
 namespace Ordering.API
 {

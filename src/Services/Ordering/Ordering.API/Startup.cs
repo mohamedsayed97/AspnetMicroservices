@@ -1,5 +1,6 @@
 //using EventBus.Messages.Common;
-using HealthChecks.UI.Client;
+//using HealthChecks.UI.Client;
+using EventBus.Messages.Common;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -33,15 +34,15 @@ namespace Ordering.API
             // MassTransit-RabbitMQ Configuration
             services.AddMassTransit(config => {
 
-                //config.AddConsumer<BasketCheckoutConsumer>();
+                config.AddConsumer<BasketCheckoutConsumer>();
 
                 config.UsingRabbitMq((ctx, cfg) => {
                     cfg.Host(Configuration["EventBusSettings:HostAddress"]);
                     cfg.UseHealthCheck(ctx);
 
-                    //cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, c => {
-                    //    c.ConfigureConsumer<BasketCheckoutConsumer>(ctx);
-                    //});
+                    cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, c => {
+                       c.ConfigureConsumer<BasketCheckoutConsumer>(ctx);
+                    });
                 });
             });
             services.AddMassTransitHostedService();
@@ -77,11 +78,11 @@ namespace Ordering.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
-                {
-                    Predicate = _ => true,
-                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-                });
+                //endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
+                //{
+                //    Predicate = _ => true,
+                //    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                //});
             });
         }
     }
